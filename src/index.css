@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f7fa;
+  color: #242332;
+}
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  padding: 24px 16px;
+  background: #171622;
+  color: white;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.nav-link {
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #aaa8b5;
+  text-decoration: none;
+}
+
+.nav-link--active {
+  background: #302b50;
+  color: #c5beff;
+}
+
+.page-content {
+  padding: 32px;
+}
