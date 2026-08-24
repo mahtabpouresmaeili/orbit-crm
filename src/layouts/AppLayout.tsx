@@ -4,9 +4,13 @@ export function AppLayout() {
   return (
     <div className="app-layout">
       <aside className="sidebar">
-        <h2>Orbit CRM</h2>
+        <div className="brand">
+          <span className="brand-mark">O</span>
+          <span>Orbit<span className="brand-muted">/CRM</span></span>
+        </div>
+        <p className="workspace-label">North America desk</p>
 
-        <nav className="sidebar-nav">
+        <nav className="sidebar-nav" aria-label="Primary navigation">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -24,6 +28,7 @@ export function AppLayout() {
           Contacts
           </NavLink>
         </nav>
+        <div className="sidebar-footer">A calmer way to know your customers.</div>
          </aside>
         <main className="page-content">
            <Outlet /> 

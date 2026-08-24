@@ -8,6 +8,7 @@ export interface ContactStageFilterProps {
 export function ContactStageFilter({value,onChange}:ContactStageFilterProps) {
     return (
        <select
+       className="stage-filter"
        value={value}
        onChange={(event)=> onChange(event.target.value as ContactStageFilterValue)}
        >
