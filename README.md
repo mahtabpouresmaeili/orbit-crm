@@ -1,75 +1,76 @@
-# React + TypeScript + Vite
+# Orbit CRM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A polished, mock-first CRM for managing customer relationships, reviewing pipeline health, and practising role-based access control in a modern React application.
 
-Currently, two official plugins are available:
+## Highlights
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Contact directory with search and lifecycle-stage filtering
+- Create and delete contact workflows with loading, error, and retry states
+- Dashboard metrics, recent activity, stage composition, and high-value opportunities
+- Switchable demo users with `admin`, `sales-manager`, and `sales-rep` roles
+- Permission-aware UI and protected routes
+- A mock API that behaves like a networked service, including controllable failures
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript
+- Vite
+- TanStack Query
+- Zod
+- React Router
+- Vitest + Testing Library
 
-## Expanding the ESLint configuration
+## Roles and permissions
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Role                 | Dashboard | View contacts | Create contacts | Delete contacts |
+| -------------------- | --------- | ------------- | --------------- | --------------- |
+| Admin                | Yes       | Yes           | Yes             | Yes             |
+| Sales manager        | Yes       | Yes           | Yes             | Yes             |
+| Sales representative | Yes       | Yes           | Yes             | No              |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Use the user switcher in the sidebar to see permissions applied to the UI. Routes are also protected, so access is not based on visibility alone.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Run locally
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Quality checks
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run lint
+npm test -- --run
+npm run build
 ```
+
+## Mock API
+
+The application deliberately uses a local in-memory API so it can be demonstrated without external services. Contact services retain the same boundary as a real API:
+
+```ts
+getContacts();
+createContact(input);
+deleteContact(contactId);
+```
+
+For error-state testing, `failNextMockRequest()` simulates a failed request. TanStack Query retries once before the UI shows a retry action.
+
+## Project structure
+
+```text
+src/
+  features/
+    auth/        # demo users, roles, permissions, route/UI guards
+    contacts/    # components, schemas, services, hooks, tests
+    dashboard/   # summary and insight utilities
+  pages/         # route-level UI
+  components/ui/ # reusable loading, empty, and error states
+```
+
+## Next steps
+
+- Add contact editing and activity notes
+- Add component tests for retry states and dashboard insights
+- Replace the mock service implementations with a real backend when needed

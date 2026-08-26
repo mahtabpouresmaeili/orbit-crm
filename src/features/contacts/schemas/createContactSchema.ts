@@ -2,7 +2,6 @@
 //Runtime validation
 import { z } from 'zod';
 
-
 //yani => یک مجموعه قانون برای اطلاعات فرم ساخت مشتری ایجاد کن.
 export const createContactSchema = z.object({
   fullName: z.string().trim().min(2, 'Name must contain at least 2 characters.'),
@@ -11,7 +10,7 @@ export const createContactSchema = z.object({
 
   stage: z.enum(['lead', 'qualified', 'customer', 'inactive']),
 
-  company: z.string().trim().min(2,"Company must contain at least 2 characters.")
+  company: z.string().trim().min(2, 'Company must contain at least 2 characters.'),
 });
 
 export type CreateContactInput = z.infer<typeof createContactSchema>;

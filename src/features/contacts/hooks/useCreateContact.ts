@@ -1,21 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createContact } from "../services/createContact";
-import type { Contact } from "../types/contact";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createContact } from '../services/createContact';
+import type { Contact } from '../types/contact';
 
 export function useCreateContact() {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    return useMutation({
-        mutationFn: createContact,
+  return useMutation({
+    mutationFn: createContact,
+    retry: 1,
+    retryDelay: 400,
 
-        onSuccess: (newContact) => {
-            queryClient.setQueryData<Contact[]> (
-                ["contacts"],
-                (prevContact = []) => [
-                    newContact,
-                    ...prevContact
-                ],
-            );
-        },
-    });
+    onSuccess: (newContact) => {
+      queryClient.setQueryData<Contact[]>(['contacts'], (prevContact = []) => [
+        newContact,
+        ...prevContact,
+      ]);
+    },
+  });
 }

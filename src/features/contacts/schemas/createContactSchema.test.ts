@@ -20,14 +20,12 @@ describe('createContactSchema', () => {
       company: 'Northstar Capital',
       stage: 'qualified',
     });
-    expect(result.success).toBe(false)
+    expect(result.success).toBe(false);
 
-    if (!result.success){
-        const errors = result.error.flatten().fieldErrors;
+    if (!result.success) {
+      const errors = result.error.flatten().fieldErrors;
 
-       expect(errors.email?.[0]).toBe(
-        "Enter a valid email address",
-);
+      expect(errors.email?.[0]).toBe('Enter a valid email address');
     }
   });
 });

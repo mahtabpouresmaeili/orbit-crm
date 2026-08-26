@@ -1,3 +1,3 @@
-import type { LifecycleStage } from "./contact";
+import type { LifecycleStage } from './contact';
 
-export type ContactStageFilterValue = "all" | LifecycleStage;
+export type ContactStageFilterValue = 'all' | LifecycleStage;
