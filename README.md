@@ -1,6 +1,11 @@
 # Orbit CRM
 
+[![CI](https://github.com/mahtabpouresmaeili/orbit-crm/actions/workflows/ci.yml/badge.svg)](https://github.com/mahtabpouresmaeili/orbit-crm/actions/workflows/ci.yml)
+[![Live demo](https://img.shields.io/badge/demo-live-232f50?logo=vercel&logoColor=white)](https://orbit-crm-nine.vercel.app)
+
 A polished, mock-first CRM for managing customer relationships, reviewing pipeline health, and practising role-based access control in a modern React application.
+
+**[View the live demo](https://orbit-crm-nine.vercel.app)**
 
 ## Highlights
 
