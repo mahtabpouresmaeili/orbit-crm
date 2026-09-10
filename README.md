@@ -3,7 +3,7 @@
 [![CI](https://github.com/mahtabpouresmaeili/orbit-crm/actions/workflows/ci.yml/badge.svg)](https://github.com/mahtabpouresmaeili/orbit-crm/actions/workflows/ci.yml)
 [![Live demo](https://img.shields.io/badge/demo-live-232f50?logo=vercel&logoColor=white)](https://orbit-crm-nine.vercel.app)
 
-A polished, mock-first CRM for managing customer relationships, reviewing pipeline health, and practising role-based access control in a modern React application.
+A polished CRM for managing customer relationships, reviewing pipeline health, and practising role-based access control in a modern React application.
 
 **[View the live demo](https://orbit-crm-nine.vercel.app)**
 
@@ -14,7 +14,7 @@ A polished, mock-first CRM for managing customer relationships, reviewing pipeli
 - Dashboard metrics, recent activity, stage composition, and high-value opportunities
 - Switchable demo users with `admin`, `sales-manager`, and `sales-rep` roles
 - Permission-aware UI and protected routes
-- A mock API that behaves like a networked service, including controllable failures
+- An Express API with request validation, CORS configuration, and in-memory data
 
 ## Stack
 
@@ -39,6 +39,12 @@ Use the user switcher in the sidebar to see permissions applied to the UI. Route
 
 ```bash
 npm install
+npm run server:dev
+```
+
+In a second terminal:
+
+```bash
 npm run dev
 ```
 
@@ -50,17 +56,18 @@ npm test -- --run
 npm run build
 ```
 
-## Mock API
+## Express API
 
-The application deliberately uses a local in-memory API so it can be demonstrated without external services. Contact services retain the same boundary as a real API:
+The Express server in `server/` uses in-memory data so the project can be demonstrated without an external database. It exposes these routes:
 
-```ts
-getContacts();
-createContact(input);
-deleteContact(contactId);
+```text
+GET     /api/contacts
+POST    /api/contacts
+PATCH   /api/contacts/:id
+DELETE  /api/contacts/:id
 ```
 
-For error-state testing, `failNextMockRequest()` simulates a failed request. TanStack Query retries once before the UI shows a retry action.
+The frontend calls the API with `fetch`, and Zod validates new contacts in both the frontend and backend. Data resets when the server restarts.
 
 ## Project structure
 
@@ -72,10 +79,11 @@ src/
     dashboard/   # summary and insight utilities
   pages/         # route-level UI
   components/ui/ # reusable loading, empty, and error states
+server/          # Express API and backend validation schemas
 ```
 
 ## Next steps
 
 - Add contact editing and activity notes
 - Add component tests for retry states and dashboard insights
-- Replace the mock service implementations with a real backend when needed
+- Replace the in-memory API data with a persistent database

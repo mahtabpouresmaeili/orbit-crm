@@ -54,7 +54,7 @@ export function ContactsPage() {
           className="contact-count"
           aria-label={`${filterContacts.length} contacts in view`}
         >
-          <strong>{filterContacts.length}</strong>
+          <strong>{filteredContacts.length}</strong>
           <span>contacts in view</span>
         </div>
       </header>
