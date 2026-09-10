@@ -1,16 +1,18 @@
 import type { CreateContactInput } from '../schemas/createContactSchema';
 import type { Contact } from '../types/contact';
-import { addContact, mockRequest } from './mockApi';
 
 export async function createContact(input: CreateContactInput): Promise<Contact> {
-  return mockRequest(() =>
-    addContact({
-      id: crypto.randomUUID(),
-      ...input,
-      owner: 'Current User',
-      potentialValue: 0,
-      lastActivity: new Date().toISOString().slice(0, 10),
-      marketingConsent: false,
-    }),
-  );
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contacts`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(input),
+  });
+
+  if (!response.ok) {
+    throw new Error('Unable to create contact.');
+  }
+
+  return response.json() as Promise<Contact>;
 }
