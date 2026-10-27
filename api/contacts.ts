@@ -1,5 +1,15 @@
-import { createContactSchema } from '../server/schemas/createContactSchema';
-import { updateContactSchema } from '../server/schemas/updateContactSchema';
+import { z } from 'zod';
+
+const createContactSchema = z.object({
+  fullName: z.string().trim().min(2),
+  email: z.string().trim().email(),
+  company: z.string().trim().min(2),
+  stage: z.enum(['lead', 'qualified', 'customer', 'inactive']),
+});
+
+const updateContactSchema = z.object({
+  stage: z.enum(['lead', 'qualified', 'customer', 'inactive']),
+});
 
 type ApiRequest = {
   method?: string;
