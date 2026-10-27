@@ -1,8 +1,9 @@
 import type { CreateContactInput } from '../schemas/createContactSchema';
 import type { Contact } from '../types/contact';
+import { getApiBaseUrl } from './getApiBaseUrl';
 
 export async function createContact(input: CreateContactInput): Promise<Contact> {
-  const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/contacts`, {
+  const response = await fetch(`${getApiBaseUrl()}/api/contacts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
