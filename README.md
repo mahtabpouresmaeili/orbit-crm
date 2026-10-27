@@ -42,7 +42,7 @@ npm install
 npm run server:dev
 ```
 
-In a second terminal:
+In a second terminal, start Vite:
 
 ```bash
 npm run dev
@@ -58,7 +58,7 @@ npm run build
 
 ## Express API
 
-The Express server in `server/` uses in-memory data so the project can be demonstrated without an external database. It exposes these routes:
+The Express server in `server/` uses in-memory data for local development. Vercel uses the serverless function in `api/contacts.ts` at the same `/api/contacts` URL. Both implementations expose these routes:
 
 ```text
 GET     /api/contacts
@@ -67,7 +67,7 @@ PATCH   /api/contacts/:id
 DELETE  /api/contacts/:id
 ```
 
-The frontend calls the API with `fetch`, and Zod validates new contacts in both the frontend and backend. Data resets when the server restarts.
+The frontend calls the API with `fetch`, and Zod validates new contacts in both the frontend and backend. The Vercel function keeps demo data in memory, so changes are temporary and may reset between serverless invocations. Use a persistent database for production data. Vercel does not require `VITE_API_URL`; locally, Vite proxies `/api` requests to Express on port 3000.
 
 ## Project structure
 
